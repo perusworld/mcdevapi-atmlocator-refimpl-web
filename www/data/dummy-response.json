@@ -1,0 +1,203 @@
+{
+    "Atms": {
+        "PageOffset": "0",
+        "TotalCount": 26,
+        "Atm": [
+            {
+                "Location": {
+                    "Name": "Sandbox ATM Location 1",
+                    "Distance": 0.9320591049747101,
+                    "DistanceUnit": "MILE",
+                    "Address": {
+                        "Line1": "4201 Leverton Cove Road",
+                        "Line2": "",
+                        "City": "SPRINGFIELD",
+                        "PostalCode": "11101",
+                        "CountrySubdivision": {
+                            "Name": "UYQQQQ",
+                            "Code": "QQ"
+                        },
+                        "Country": {
+                            "Name": "UYQQQRR",
+                            "Code": "UYQ"
+                        }
+                    },
+                    "Point": {
+                        "Latitude": 38.76006576913497,
+                        "Longitude": -90.74615107952418
+                    },
+                    "LocationType": {
+                        "Type": "OTHER"
+                    }
+                },
+                "HandicapAccessible": "NO",
+                "Camera": "NO",
+                "Availability": "UNKNOWN",
+                "AccessFees": "UNKNOWN",
+                "Owner": "Sandbox ATM 1",
+                "SharedDeposit": "NO",
+                "SurchargeFreeAlliance": "NO",
+                "SurchargeFreeAllianceNetwork": "DOES_NOT_PARTICIPATE_IN_SFA",
+                "Sponsor": "Sandbox",
+                "SupportEMV": 1,
+                "InternationalMaestroAccepted": 1
+            },
+            {
+                "Location": {
+                    "Name": "Sandbox ATM Location 2",
+                    "Distance": 1.8641182099494202,
+                    "DistanceUnit": "MILE",
+                    "Address": {
+                        "Line1": "4201 Leverton Cove Road",
+                        "Line2": "",
+                        "City": "SPRINGFIELD",
+                        "PostalCode": "11101",
+                        "CountrySubdivision": {
+                            "Name": "UYQQQQ",
+                            "Code": "QQ"
+                        },
+                        "Country": {
+                            "Name": "UYQQQRR",
+                            "Code": "UYQ"
+                        }
+                    },
+                    "Point": {
+                        "Latitude": 38.731487669791534,
+                        "Longitude": -90.71778036304313
+                    },
+                    "LocationType": {
+                        "Type": "OTHER"
+                    }
+                },
+                "HandicapAccessible": "NO",
+                "Camera": "NO",
+                "Availability": "UNKNOWN",
+                "AccessFees": "UNKNOWN",
+                "Owner": "Sandbox ATM 2",
+                "SharedDeposit": "NO",
+                "SurchargeFreeAlliance": "NO",
+                "SurchargeFreeAllianceNetwork": "DOES_NOT_PARTICIPATE_IN_SFA",
+                "Sponsor": "Sandbox",
+                "SupportEMV": 1,
+                "InternationalMaestroAccepted": 1
+            },
+            {
+                "Location": {
+                    "Name": "Sandbox ATM Location 3",
+                    "Distance": 2.7961773149241305,
+                    "DistanceUnit": "MILE",
+                    "Address": {
+                        "Line1": "4201 Leverton Cove Road",
+                        "Line2": "",
+                        "City": "SPRINGFIELD",
+                        "PostalCode": "11101",
+                        "CountrySubdivision": {
+                            "Name": "UYQQQQ",
+                            "Code": "QQ"
+                        },
+                        "Country": {
+                            "Name": "UYQQQRR",
+                            "Code": "UYQ"
+                        }
+                    },
+                    "Point": {
+                        "Latitude": 38.72393987914364,
+                        "Longitude": -90.70344858767774
+                    },
+                    "LocationType": {
+                        "Type": "OTHER"
+                    }
+                },
+                "HandicapAccessible": "NO",
+                "Camera": "NO",
+                "Availability": "UNKNOWN",
+                "AccessFees": "UNKNOWN",
+                "Owner": "Sandbox ATM 3",
+                "SharedDeposit": "NO",
+                "SurchargeFreeAlliance": "NO",
+                "SurchargeFreeAllianceNetwork": "DOES_NOT_PARTICIPATE_IN_SFA",
+                "Sponsor": "Sandbox",
+                "SupportEMV": 1,
+                "InternationalMaestroAccepted": 1
+            },
+            {
+                "Location": {
+                    "Name": "Sandbox ATM Location 4",
+                    "Distance": 3.7282364198988405,
+                    "DistanceUnit": "MILE",
+                    "Address": {
+                        "Line1": "3234 Abner Road",
+                        "Line2": "",
+                        "City": "Wausau",
+                        "PostalCode": "11101",
+                        "CountrySubdivision": {
+                            "Name": "UYQQQQ",
+                            "Code": "QQ"
+                        },
+                        "Country": {
+                            "Name": "UYQQQRR",
+                            "Code": "UYQ"
+                        }
+                    },
+                    "Point": {
+                        "Latitude": 38.716390339255966,
+                        "Longitude": -90.68911984004767
+                    },
+                    "LocationType": {
+                        "Type": "OTHER"
+                    }
+                },
+                "HandicapAccessible": "NO",
+                "Camera": "NO",
+                "Availability": "UNKNOWN",
+                "AccessFees": "UNKNOWN",
+                "Owner": "Sandbox ATM 4",
+                "SharedDeposit": "NO",
+                "SurchargeFreeAlliance": "NO",
+                "SurchargeFreeAllianceNetwork": "DOES_NOT_PARTICIPATE_IN_SFA",
+                "Sponsor": "Sandbox",
+                "SupportEMV": 1,
+                "InternationalMaestroAccepted": 1
+            },
+            {
+                "Location": {
+                    "Name": "Sandbox ATM Location 5",
+                    "Distance": 4.6602955248735505,
+                    "DistanceUnit": "MILE",
+                    "Address": {
+                        "Line1": "2440 Kelly Drive",
+                        "Line2": "",
+                        "City": "Charles Town",
+                        "PostalCode": "11101",
+                        "CountrySubdivision": {
+                            "Name": "UYQQQQ",
+                            "Code": "QQ"
+                        },
+                        "Country": {
+                            "Name": "UYQQQRR",
+                            "Code": "UYQ"
+                        }
+                    },
+                    "Point": {
+                        "Latitude": 38.68036695156321,
+                        "Longitude": -90.72996675775346
+                    },
+                    "LocationType": {
+                        "Type": "OTHER"
+                    }
+                },
+                "HandicapAccessible": "NO",
+                "Camera": "NO",
+                "Availability": "UNKNOWN",
+                "AccessFees": "UNKNOWN",
+                "Owner": "Sandbox ATM 5",
+                "SharedDeposit": "NO",
+                "SurchargeFreeAlliance": "NO",
+                "SurchargeFreeAllianceNetwork": "DOES_NOT_PARTICIPATE_IN_SFA",
+                "Sponsor": "Sandbox",
+                "SupportEMV": 1,
+                "InternationalMaestroAccepted": 1
+            }
+        ]
+    }
+}

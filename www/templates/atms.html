@@ -1,0 +1,29 @@
+<ion-view view-title="ATMs Near By">
+    <ion-content>
+        <div class="row">
+            <div class="col">
+                <ui-gmap-google-map center='map.center' zoom='map.zoom' control='googleMap'>
+                    <ui-gmap-markers models='atms' coords="'self'" options="'options'" click="onClick" control="googleMapMarkers">
+                        <ui-gmap-windows show="show">
+                            <div ng-non-bindable>{{Location.Name}}</div>
+                        </ui-gmap-windows>
+                    </ui-gmap-markers>
+                </ui-gmap-google-map>
+            </div>
+            <div class="col">
+                <div class="bar bar-header bar-positive">
+                    <h1 class="title">All ATM Locations</h1>
+                </div>
+                <div class="list">
+                    <a class="item" ui-sref="atm({locId: atm.id})" ng-repeat="atm in atms">
+                        <h2>{{atm.Location.Name}}</h2>
+                        <p>{{atm.Location.Address.Line1}}, {{atm.Location.Address.City}}</p>
+                        <span class="item-note">
+                            {{atm.Location.Distance | number : 2}} miles <i class="ion-android-arrow-dropright icon-positive"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

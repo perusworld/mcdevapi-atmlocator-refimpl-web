@@ -1,0 +1,29 @@
+.row, .scroll, .angular-google-map, .angular-google-map-container {
+    height: 100%;
+}
+
+.col {
+    padding: 0px;
+}
+
+.bar {
+    position: relative;
+}
+
+.icon-positive {
+    color: #fd9827;
+}
+
+.button.button-positive, .bar.bar-positive, .button.button-positive:active {
+    background-color: #fd9827;
+    border-color: #fd9827;
+}
+
+.button.button-positive:hover {
+    background: #ffac30;
+    border-color: #ffac30;
+}
+
+.button.padded {
+    margin-right: 10px;
+}

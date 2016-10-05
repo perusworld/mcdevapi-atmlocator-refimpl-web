@@ -1,0 +1,37 @@
+<ion-view view-title="{{atm.name}}">
+    <ion-content>
+        <div class="row">
+            <div class="col">
+                <ui-gmap-google-map center='atm' zoom='12' control='googleMap'>
+                    <ui-gmap-marker coords="atm" idKey="'id'" options="atm.options">
+                    </ui-gmap-marker>
+                </ui-gmap-google-map>
+            </div>
+            <div class="col">
+                <div class="bar bar-header bar-positive">
+                    <a class="button button-clear" ui-sref="atms">
+                        <i class="ion-arrow-left-c"></i> Back
+                    </a>
+                    <h1 class="title">Location Detail</h1>
+                </div>
+                <div class="list">
+                    <div class="item item-divider">
+                        Address
+                    </div>
+                    <a class="item item-text-wrap">
+                        <h2>{{atm.Location.Name}}</h2>
+                        <p>{{atm.Location.Address.Line1}}, {{atm.Location.Address.City}}</p>
+                    </a>
+                    <div class="item item-divider">
+                        Services
+                    </div>
+                    <div class="item item-icon-right" ng-repeat="(key, value) in atm.services">
+                        {{key}}
+                        <i ng-if="value" class="icon ion-android-checkbox-outline icon-positive"></i>
+                        <i ng-if="!value" class="icon ion-android-checkbox-outline-blank"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
