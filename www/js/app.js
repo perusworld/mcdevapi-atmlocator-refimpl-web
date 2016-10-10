@@ -1,13 +1,7 @@
-angular.module('mcdapiloc', ['ionic', 'mcdapiloc.controllers', 'mcdapiloc.routes', 'mcdapiloc.services', 'mcdapiloc.api', 'uiGmapgoogle-maps'])
+angular.module('mcdapiloc', ['ionic', 'mcdapiloc.controllers', 'mcdapiloc.routes', 'mcdapiloc.services', 'mcdapiloc.api', 'ngMap'])
 
-  .config(
-  ['uiGmapGoogleMapApiProvider', function (GoogleMapApiProviders) {
-    GoogleMapApiProviders.configure({
-      v: '3',
-      libraries: 'weather,geometry,visualization'
-    });
-  }]
-  )
+  .config(function () {
+  })
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
