@@ -37,7 +37,7 @@
         <div class="w-row">
             <div class="nopad w-col w-col-8 w-col-medium-6">
                 <div class="map-holder" ng-controller="MapsCtrl">
-                    <div map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyDP2uZ5g-Yo3FjgmHCRL-VoYBIax26YfDU&libraries=visualization,drawing,geometry,places">
+                    <div map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyDMh0oSS6Z2KzuPTEeVaEugK-tnUkP7KjU&libraries=visualization,drawing,geometry,places">
                         <ng-map class="map w-widget w-widget-map" zoom="{{map.zoom}}" center="[{{map.center.lat}}, {{map.center.lng}}]" class="map w-widget w-widget-map">
                             <marker ng-repeat="atm in atms" position="{{atm.pos}}" data="{{atm.locID}}" on-click="showAtm(atm)" ; title="{{atm.Location.Name}}"></marker>
                         </ng-map>
