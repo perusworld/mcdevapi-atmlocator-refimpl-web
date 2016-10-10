@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="37px" viewBox="0 0 38 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.2 (33826) - http://www.bohemiancoding.com/sketch -->
+    <title>check-yes</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="mcdev-sampleapp-06" transform="translate(-1584.000000, -415.000000)" fill="#FBA000">
+            <g id="App-Window" transform="translate(1057.000000, 80.000000)">
+                <g id="Group" transform="translate(-1.000000, 84.000000)">
+                    <g id="List-Item-Copy-2" transform="translate(33.000000, 251.000000)">
+                        <path d="M495.541076,6.54630952 L495.541076,36.6666667 L525.591866,36.6666667 L525.591866,23.5714286 L521.673504,23.5714286 L521.673504,32.7380952 L499.459438,32.7380952 L499.459438,10.4761905 L511.218443,10.4761905 L511.218443,6.54630952 L495.541076,6.54630952 L495.541076,6.54630952 Z M526.839627,0 L511.805086,18.7955952 L506.304485,14.5684524 L502.183607,19.9571429 L512.944403,28.2294048 L532.124646,4.24809524 L526.839627,0 L526.839627,0 Z" id="check-yes"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

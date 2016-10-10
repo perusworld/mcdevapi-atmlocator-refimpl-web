@@ -5,10 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-
-    <!-- compiled css output -->
-    <link href="css/ionic.app.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="css/webflow.css" rel="stylesheet" type="text/css">
+    <link href="css/locationsapp.webflow.css" rel="stylesheet" type="text/css">
     <script src="lib/lodash/dist/lodash.min.js"></script>
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -23,25 +22,36 @@
 </head>
 
 <body ng-app="mcdapiloc">
-    <ion-nav-bar>
-        <ion-nav-buttons side="left">
-            <a class="button button-clear" href="https://developer.mastercard.com/">
-                <img src="img/mc-dev-logo.png" />
+    <div class="navbar">
+        <div class="logo">
+            <a class="w-inline-block" href="https://developer.mastercard.com"><img class="mc-logo" src="images/md-logo.svg">
             </a>
-        </ion-nav-buttons>
-        <ion-nav-buttons side="right">
-            <a class="button button-clear padded">
-                <h4>ATM Locations</h4>
-            </a>
-            <a class="button button-positive padded" href="https://github.com/perusworld/mcdevapi-atmlocator-refimpl-web">
-                View on Github
-            </a>
-            <a class="button button-positive padded" href="https://developer.mastercard.com/documentation/locations/">
-                View Docs
-            </a>
-        </ion-nav-buttons>
-    </ion-nav-bar>
-    <ion-nav-view></ion-nav-view>
+        </div>
+        <div class="nav-info-panel">
+            <div class="app-info w-hidden-small w-hidden-tiny">
+                <h5>Reference App</h5>
+                <h6>ATM Locations</h6>
+            </div><a class="button w-button" href="https://github.com/perusworld/mcdevapi-atmlocator-refimpl-web">View on Github</a><a class="button w-button" href="https://developer.mastercard.com/documentation/locations/">View Docs</a>
+        </div>
+    </div>
+    <div>
+        <div class="w-row">
+            <div class="nopad w-col w-col-8 w-col-medium-6">
+                <div class="map-holder" ng-controller="MapsCtrl">
+                    <ui-gmap-google-map class="map w-widget w-widget-map" center='map.center' zoom='map.zoom' control='googleMap'>
+                        <ui-gmap-markers models='atms' coords="'self'" options="'options'" click="onClick" control="googleMapMarkers">
+                            <ui-gmap-windows show="show">
+                                <div ng-non-bindable>{{Location.Name}}</div>
+                            </ui-gmap-windows>
+                        </ui-gmap-markers>
+                    </ui-gmap-google-map>
+                </div>
+            </div>
+            <div class="nopad w-col w-col-4 w-col-medium-6">
+                <ion-nav-view></ion-nav-view>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

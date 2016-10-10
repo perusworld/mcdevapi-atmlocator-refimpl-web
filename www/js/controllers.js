@@ -11,12 +11,11 @@ angular.module('mcdapiloc.controllers', [])
 
     })
 
-    .controller('AtmsCtrl', ['$scope', '$stateParams', 'Session', 'ATMService', 'uiGmapGoogleMapApi',
+    .controller('MapsCtrl', ['$scope', '$stateParams', 'Session', 'ATMService', 'uiGmapGoogleMapApi',
         function ($scope, $stateParams, Session, ATMService, uiGmapGoogleMapApi) {
             $scope.atms = [];
             $scope.googleMap = {};
             $scope.googleMapMarkers = {};
-            $scope.position = {};
             $scope.maps = {};
 
             var prevMarker = null;
@@ -29,76 +28,89 @@ angular.module('mcdapiloc.controllers', [])
                 center: center,
                 zoom: 12
             };
+
+            Session.onEvent("ATMS", function (atms) {
+                var center = {
+                    latitude: atms[0].latitude,
+                    longitude: atms[0].longitude
+                };
+                $scope.map = {
+                    center: center,
+                    zoom: 12
+                };
+                $scope.googleMap.refresh(center);
+                $scope.atms = atms;
+            });
+
             var onSuccess = function (position) {
                 if (null == position) {
                     alert('Unable to current location info');
                 } else {
-                    $scope.position = position;
-                    checkMaps();
+                    checkMaps(position);
                 }
             };
 
             $scope.onClick = function (marker, eventName, model) {
             };
 
-            var checkMaps = function () {
-                if ($scope.position.coords && $scope.maps.version) {
-                    ATMService.nearby($scope.position, function (atms) {
-                        var center = {
-                            latitude: atms[0].latitude,
-                            longitude: atms[0].longitude
-                        };
-                        atms.forEach(ATMService.prepGmaps, ATMService);
-                        $scope.googleMap.refresh(center);
-                        $scope.map = {
-                            center: center,
-                            zoom: 12
-                        };
-                        $scope.atms = atms;
-                    });
+            var checkMaps = function (position) {
+                if (position.coords && $scope.maps.version) {
+                    var center = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+                    $scope.map = {
+                        center: center,
+                        zoom: 12
+                    };
+                    $scope.googleMap.refresh(center);
+                    Session.fireEvent("GEO", position);
                 }
             };
 
-            Session.getCurrentPosition(onSuccess);
 
             uiGmapGoogleMapApi.then(function (maps) {
                 $scope.maps = maps;
-                checkMaps();
+                Session.getCurrentPosition(onSuccess);
+            });
+        }
+    ])
+
+
+    .controller('AtmsCtrl', ['$scope', '$stateParams', 'Session', 'ATMService',
+        function ($scope, $stateParams, Session, ATMService) {
+            $scope.atms = [];
+            $scope.currentState = {
+                showAtms: true,
+                showAtm: false,
+                atm: {}
+            }
+
+            $scope.showAtm = function (atm) {
+                $scope.currentState.atm = atm;
+                $scope.currentState.showAtms = false;
+                $scope.currentState.showAtm = true;
+                Session.fireEvent("ATMS", [atm]);
+            };
+
+            $scope.showAtms = function () {
+                $scope.currentState.showAtm = false;
+                $scope.currentState.showAtms = true;
+                Session.fireEvent("ATMS", $scope.atms);
+            };
+
+            Session.onEvent("GEO", function (position) {
+                loadAtms(position);
             });
 
-        }])
-
-    .controller('AtmCtrl', ['$scope', '$stateParams', 'Session', 'ATMService', 'uiGmapGoogleMapApi',
-        function ($scope, $stateParams, Session, ATMService, uiGmapGoogleMapApi) {
-            $scope.googleMap = {};
-            $scope.atm = {
-                id: $stateParams.locId,
-                latitude: 0,
-                longitude: 0
-            };
-            var center = {
-                latitude: 0,
-                longitude: 0
-            };
-            $scope.map = {
-                center: center,
-                zoom: 12
-            };
-            var onSuccess = function (position) {
-                if (null == position) {
-                    alert('Unable to current location info');
-                } else {
-                    ATMService.get($stateParams.locId, position, function (atm) {
-                        ATMService.prepGmaps(atm);
-                        var center = {
-                            latitude: atm.latitude,
-                            longitude: atm.longitude
-                        };
-                        $scope.googleMap.refresh(center);
-                        $scope.atm = atm;
+            var loadAtms = function (position) {
+                if (position) {
+                    ATMService.nearby(position, function (atms) {
+                        atms.forEach(ATMService.prepGmaps, ATMService);
+                        $scope.atms = atms;
+                        Session.fireEvent("ATMS", atms);
                     });
                 }
             };
 
-            Session.getCurrentPosition(onSuccess);
         }]);

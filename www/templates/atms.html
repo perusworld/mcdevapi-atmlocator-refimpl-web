@@ -1,27 +1,61 @@
 <ion-view view-title="ATMs Near By">
     <ion-content>
-        <div class="row">
-            <div class="col">
-                <ui-gmap-google-map center='map.center' zoom='map.zoom' control='googleMap'>
-                    <ui-gmap-markers models='atms' coords="'self'" options="'options'" click="onClick" control="googleMapMarkers">
-                        <ui-gmap-windows show="show">
-                            <div ng-non-bindable>{{Location.Name}}</div>
-                        </ui-gmap-windows>
-                    </ui-gmap-markers>
-                </ui-gmap-google-map>
-            </div>
-            <div class="col">
-                <div class="bar bar-header bar-positive">
-                    <h1 class="title">All ATM Locations</h1>
+        <div ng-if="currentState.showAtms">
+            <div class="app-holder">
+                <div class="app-nav">
+                    <div class="nav-button-holder"><a class="nav-link">&nbsp</a>
+                    </div>
+                    <h1 class="app-title">All ATM Locations</h1>
+                    <div class="nav-button-holder"><a class="nav-link">&nbsp</a>
+                    </div>
                 </div>
-                <div class="list">
-                    <a class="item" ui-sref="atm({locId: atm.id})" ng-repeat="atm in atms">
-                        <h2>{{atm.Location.Name}}</h2>
-                        <p>{{atm.Location.Address.Line1}}, {{atm.Location.Address.City}}</p>
-                        <span class="item-note">
-                            {{atm.Location.Distance | number : 2}} miles <i class="ion-android-arrow-dropright icon-positive"></i>
-                        </span>
-                    </a>
+            </div>
+            <div class="app-search-holder">
+                <div class="w-form">
+                    <form>
+                        <input class="search-input w-input" id="search" maxlength="256" name="search" placeholder="Search by address..." type="text">
+                    </form>
+                </div>
+            </div>
+            <div class="nav-list-item" href="" ng-click="showAtm(atm)" ng-repeat="atm in atms">
+                <div class="details-holder">
+                    <h1>{{atm.Location.Name}}</h1>
+                    <h2>{{atm.Location.Address.Line1}}, {{atm.Location.Address.City}}</h2>
+                </div>
+                <div class="distance-holder">
+                    <h2 class="access">{{atm.Location.Distance | number : 2}} miles</h2><img class="carot" src="images/carot.svg">
+                </div>
+            </div>
+        </div>
+        <div ng-if="currentState.showAtm">
+            <div class="app-holder">
+                <div class="app-nav">
+                    <div class="nav-button-holder"><a class="nav-link" href="" ng-click="showAtms()">&lt; Back</a>
+                    </div>
+                    <h1 class="app-title">Location Detail</h1>
+                    <div class="nav-button-holder"><a class="nav-link">&nbsp</a>
+                    </div>
+                </div>
+                <div class="nav-list-item">
+                    <div class="details-holder">
+                        <h1>{{currentState.atm.Location.Name}}</h1>
+                        <h2>{{currentState.atm.Location.Address.Line1}}, {{currentState.atm.Location.Address.City}}</h2>
+                    </div>
+                    <div class="distance-holder">
+                        <h2 class="access">{{currentState.atm.Location.Distance | number : 2}} miles</h2><img class="carot" src="images/carot.svg">
+                    </div>
+                </div>
+                <div class="nav-list-section">
+                    <h1 class="section-divider">Services</h1>
+                </div>
+                <div class="nav-list-item" ng-repeat="(key, value) in currentState.atm.services">
+                    <div class="details-holder">
+                        <h4>{{key}}</h4>
+                    </div>
+                    <div ng-if="value" class="distance-holder"><img class="check" src="images/check-yes.svg">
+                    </div>
+                    <div ng-if="!value" class="distance-holder"><img class="check-no" src="images/check-no.svg">
+                    </div>
                 </div>
             </div>
         </div>

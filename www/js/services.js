@@ -1,6 +1,6 @@
 angular.module('mcdapiloc.services', [])
 
-    .factory('Session', function ($http) {
+    .factory('Session',['$rootScope', '$http', function ($rootScope, $http) {
         var Session = {
             data: {},
             set: function (key, value) {
@@ -22,10 +22,18 @@ angular.module('mcdapiloc.services', [])
                 } else {
                     callback(ret);
                 };
+            },
+            fireEvent: function(msgId, args) {
+                $rootScope.$broadcast(msgId, args);
+            },
+            onEvent: function(msgId, handler) {
+                $rootScope.$on(msgId, function(event, args) {
+                    handler(args);
+                });
             }
         };
         return Session;
-    })
+    }])
 
     .factory('BlankFactory', [function () {
 
