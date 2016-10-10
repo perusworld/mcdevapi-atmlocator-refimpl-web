@@ -1,6 +1,6 @@
 angular.module('mcdapiloc.services', [])
 
-    .factory('Session', function ($http) {
+    .factory('Session',['$rootScope', '$http', function ($rootScope, $http) {
         var Session = {
             data: {},
             set: function (key, value) {
@@ -22,10 +22,18 @@ angular.module('mcdapiloc.services', [])
                 } else {
                     callback(ret);
                 };
+            },
+            fireEvent: function(msgId, args) {
+                $rootScope.$broadcast(msgId, args);
+            },
+            onEvent: function(msgId, handler) {
+                $rootScope.$on(msgId, function(event, args) {
+                    handler(args);
+                });
             }
         };
         return Session;
-    })
+    }])
 
     .factory('BlankFactory', [function () {
 
@@ -45,8 +53,7 @@ angular.module('mcdapiloc.services', [])
                 LocApi.getAtms(position, function (atmResp) {
                     ret.current = atmResp.Atms.Atm.map(function (item, index) {
                         item.id = index;
-                        item.latitude = item.Location.Point.Latitude;
-                        item.longitude = item.Location.Point.Longitude;
+                        item.pos = [item.Location.Point.Latitude, item.Location.Point.Longitude];
                         item.services = ret.services(item);
                         return item;
                     });
@@ -63,7 +70,6 @@ angular.module('mcdapiloc.services', [])
                 atm.options = {
                     title: atm.Location.Name,
                     icon: 'http://chart.apis.google.com/chart?chst=d_map_spin&chld=.5|0|fd9827|10|b|' + idx
-                    //icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + idx + '|fd9827'
                 };
             }
         };
