@@ -11,63 +11,18 @@ angular.module('mcdapiloc.controllers', [])
 
     })
 
-    .controller('MapsCtrl', ['$scope', '$stateParams', 'Session', 'ATMService', 'NgMap',
+    .controller('AtmsCtrl', ['$scope', '$stateParams', 'Session', 'ATMService', 'NgMap',
         function ($scope, $stateParams, Session, ATMService, NgMap) {
-
-            $scope.init = function (mode) {
-                $scope.mode = mode;
-                if ($scope.mode == 'lazy') {
-                    setTimeout(function () {
-                        $scope.$apply(function () {
-                            $scope.map.show = true;
-                        });
-                    }, 1000);
-                }
-            };
-
-            $scope.atms = [];
-            var center = {
-                lat: 0,
-                lng: 0
-            };
             $scope.map = {
-                center: center,
-                zoom: 12,
-                show: false
+                center: {
+                    lat: 0,
+                    lng: 0
+                },
+                atms: [],
+                zoom: 12
             };
-            var vm = this;
-
-            $scope.mapInitialized = function (map) {
-                vm.mapObj = map;
-                Session.getCurrentPosition(onSuccess);
-            };
-
-            Session.onEvent("ATMS", function (atms) {
-                $scope.map.center.lat = atms[0].pos[0];
-                $scope.map.center.lng = atms[0].pos[1];
-                $scope.atms = atms;
-            });
-
-            var onSuccess = function (position) {
-                if (null == position) {
-                    alert('Unable to current location info');
-                } else if (position.coords) {
-                    vm.mapObj.setCenter({ lat: position.coords.latitude, lng: position.coords.longitude });
-                    Session.fireEvent("GEO", position);
-                }
-
-            };
-
-            $scope.showAtm = function (marker) {
-            };
-
-        }
-    ])
-
-
-    .controller('AtmsCtrl', ['$scope', '$stateParams', 'Session', 'ATMService',
-        function ($scope, $stateParams, Session, ATMService) {
             $scope.atms = [];
+            $scope.allAtms = [];
             $scope.currentState = {
                 showAtms: true,
                 showAtm: false,
@@ -81,13 +36,13 @@ angular.module('mcdapiloc.controllers', [])
                 $scope.currentState.atm = atm;
                 $scope.currentState.showAtms = false;
                 $scope.currentState.showAtm = true;
-                Session.fireEvent("ATMS", [atm]);
+                $scope.initAtms([atm]);
             };
 
             $scope.showAtms = function () {
                 $scope.currentState.showAtm = false;
                 $scope.currentState.showAtms = true;
-                Session.fireEvent("ATMS", $scope.atms);
+                $scope.initAtms($scope.allAtms);
             };
 
             $scope.placeChanged = function () {
@@ -98,18 +53,38 @@ angular.module('mcdapiloc.controllers', [])
                         longitude: this.getPlace().geometry.location.lng()
                     }
                 };
-                Session.fireEvent("GEO", pos);
+                $scope.onSuccess(pos);
             };
 
-            Session.onEvent("GEO", function (position) {
+            $scope.initAtms = function (atms) {
+                $scope.map.center.lat = atms[0].pos[0];
+                $scope.map.center.lng = atms[0].pos[1];
+                $scope.atms = atms;
+                $scope.mapObj.setCenter({ lat: $scope.map.center.lat, lng: $scope.map.center.lng });
+            }
+
+            $scope.loadAtms = function (position) {
                 if (position) {
                     ATMService.nearby(position, function (atms) {
                         atms.forEach(ATMService.prepGmaps, ATMService);
-                        $scope.atms = atms;
-                        Session.fireEvent("ATMS", atms);
+                        $scope.allAtms = atms;
+                        $scope.initAtms(atms);
                         $scope.currentState.showAddress = true;
                     });
                 }
-            });
+            };
 
+            $scope.onSuccess = function (position) {
+                if (null == position) {
+                    alert('Unable to current location info');
+                } else if (position.coords) {
+                    $scope.loadAtms(position);
+                }
+
+            };
+
+            NgMap.getMap().then(function (map) {
+                $scope.mapObj = map;
+                Session.getCurrentPosition($scope.onSuccess);
+            });
         }]);
