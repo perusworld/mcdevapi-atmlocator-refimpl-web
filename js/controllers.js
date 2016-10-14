@@ -13,6 +13,18 @@ angular.module('mcdapiloc.controllers', [])
 
     .controller('MapsCtrl', ['$scope', '$stateParams', 'Session', 'ATMService', 'NgMap',
         function ($scope, $stateParams, Session, ATMService, NgMap) {
+
+            $scope.init = function (mode) {
+                $scope.mode = mode;
+                if ($scope.mode == 'lazy') {
+                    setTimeout(function () {
+                        $scope.$apply(function () {
+                            $scope.map.show = true;
+                        });
+                    }, 1000);
+                }
+            };
+
             $scope.atms = [];
             var center = {
                 lat: 0,
@@ -20,14 +32,16 @@ angular.module('mcdapiloc.controllers', [])
             };
             $scope.map = {
                 center: center,
-                zoom: 12
+                zoom: 12,
+                show: false
             };
             var vm = this;
 
-            NgMap.getMap().then(function (map) {
+            $scope.mapInitialized = function (map) {
                 vm.mapObj = map;
                 Session.getCurrentPosition(onSuccess);
-            });
+            };
+
             Session.onEvent("ATMS", function (atms) {
                 $scope.map.center.lat = atms[0].pos[0];
                 $scope.map.center.lng = atms[0].pos[1];

@@ -14,6 +14,10 @@ angular.module('mcdapiloc.api', [])
                     $http.get('/mcdevapi-atmlocator-refimpl-web/data/dummy-response.json').then(function successCallback(response) {
                         callback(response.data)
                     }, function errorCallback(response) {
+                        $http.get('/data/dummy-response.json').then(function successCallback(response) {
+                            callback(response.data)
+                        }, function errorCallback(response) {
+                        });
                     });
                 });
             }
