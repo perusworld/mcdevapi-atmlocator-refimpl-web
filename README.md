@@ -1,4 +1,4 @@
-# Mastercard Developer API - ATM Locations - Reference Implementation - Angular/Web #
+# Mastercard Developer API - ATM Locations - Reference Implementation - Angular/Express #
 
 ## [Demo](https://perusworld.github.io/mcdevapi-atmlocator-refimpl-web/) ##
 
@@ -40,4 +40,52 @@ node index.js
 export KEY_FILE_PWD=<p12 key password defaults to keystorepassword>
 export KEY_FILE_ALIAS=<p12 key alias defaults to keyalias>
 export SANDBOX=<sandbox or not defaults to true>
+```
+## Code ##
+### Backend API Initialization ###
+```javascript
+var locations = require('mastercard-locations');
+var MasterCardAPI = locations.MasterCardAPI;
+var config = {
+    p12file: process.env.KEY_FILE || null,
+    p12pwd: process.env.KEY_FILE_PWD || 'keystorepassword',
+    p12alias: process.env.KEY_FILE_ALIAS || 'keyalias',
+    apiKey: process.env.API_KEY || null,
+    sandbox: process.env.SANDBOX || 'true',
+}
+ var authentication = new MasterCardAPI.OAuth(config.apiKey, config.p12file, config.p12alias, config.p12pwd);
+    MasterCardAPI.init({
+        sandbox: 'true' === config.sandbox,
+        authentication: authentication
+    });
+```
+### Backend API Call (using latitude,longitude sent as part of JSON post) ###
+```javascript
+app.post('/atmsNearby', function (req, res) {
+  var requestData = {
+      "PageLength": "5",
+      "PageOffset": "0",
+      "Latitude": req.body.latitude,
+      "Longitude": req.body.longitude
+  };
+
+  locations.ATMLocations.query(requestData, function (error, data) {
+      if (error) {
+          console.error("An error occurred");
+          console.dir(error, { depth: null });
+          res.json({
+              Atms: {
+                  PageOffset: "0",
+                  TotalCount: 0,
+                  Atm: []
+              }
+          });
+      }
+      else {
+          res.json(data);
+      }
+  });
+
+});
+
 ```
