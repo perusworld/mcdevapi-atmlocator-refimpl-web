@@ -89,3 +89,63 @@ app.post('/atmsNearby', function (req, res) {
 });
 
 ```
+### Angular Service to get ATMs at a location ###
+```javascript
+angular.module('mcdapiloc.api', [])
+    .service('LocApi', ['$http', function ($http) {
+        return {
+            getAtms: function (position, callback) {
+                var data = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                }
+                $http.post('/atmsNearby', data).then(function successCallback(response) {
+                    callback(response.data)
+                }, function errorCallback(response) {
+                });
+            }
+        };
+
+    }])
+        .service('ATMService', ['LocApi', function (LocApi) {
+        var ret = {
+            nearby: function (position, callback) {
+                LocApi.getAtms(position, function (atmResp) {
+                    ret.current = atmResp.Atms.Atm.map(function (item, index) {
+                        item.id = index;
+                        item.pos = [item.Location.Point.Latitude, item.Location.Point.Longitude];
+                        return item;
+                    });
+                    callback(ret.current)
+                });
+            },
+        };
+        return ret;
+
+    }]);
+```
+### Angular Controller to get ATMs at a location ###
+```javascript
+.controller('AtmsCtrl', ['$scope', '$stateParams', 'ATMService',
+    function ($scope, $stateParams, ATMService) {
+        $scope.atms = [];
+        navigator.geolocation.getCurrentPosition(function (position) {
+            ATMService.nearby(position, function (atms) {
+                $scope.atms = atms;
+            });
+        }, function (error) {
+        });
+    }]);
+```
+### Angular Template list the ATMs ###
+```html
+    <div class="nav-list-item" href="" ng-click="showAtm(atm)" ng-repeat="atm in atms">
+        <div class="details-holder">
+            <h1>{{atm.Location.Name}}</h1>
+            <h2>{{atm.Location.Address.Line1}}, {{atm.Location.Address.City}}</h2>
+        </div>
+        <div class="distance-holder">
+            <h2 class="access">{{atm.Location.Distance | number : 2}} miles</h2><img class="carot" src="images/carot.svg">
+        </div>
+    </div>
+```
